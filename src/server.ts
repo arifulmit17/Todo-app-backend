@@ -3,6 +3,7 @@ dotenv.config({ path: "./src/.env.local" });
 import express, { type Request, type Response } from "express";
 import cors from "cors";
 import { connectDB } from "./config/db";
+import authRoutes from "./routes/auth.routes";  // <-- you forgot this
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -12,6 +13,10 @@ app.use(cors());
 app.use(express.json());
 
 connectDB();
+
+// Mount your auth routes
+app.use("/user", authRoutes);  // <-- and this
+app.use("/", authRoutes);  // <-- and this
 
 // Test route
 app.get("/", (req: Request, res: Response) => {
