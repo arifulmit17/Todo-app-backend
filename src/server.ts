@@ -16,7 +16,7 @@ connectDB();
 
 // Mount your auth routes
 app.use("/user", authRoutes);  // <-- and this
-app.use("/", authRoutes);  // <-- and this
+app.use("/user", authRoutes);  // <-- and this
 
 // Test route
 app.get("/", (req: Request, res: Response) => {
