@@ -18,6 +18,7 @@ router.post("/login", async (req: Request, res: Response) => {
 
   // 2. Find user
   const user = await User.findOne({ email });
+  console.log(user);
   if (!user) {
     return res.status(401).json({ message: "Invalid credentials" });
   }
@@ -42,12 +43,13 @@ router.post("/login", async (req: Request, res: Response) => {
       id: user._id,
       email: user.email,
       name: user.name,
+      role: user.role,
     },
   });
 });
 router.post("/register", async (req: Request, res: Response) => {
   try {
-    const { email, password, name } = req.body;
+    const { email, password, name, role } = req.body;
 
     // Check empty fields
     if (!email || !password || !name) {
@@ -68,6 +70,7 @@ router.post("/register", async (req: Request, res: Response) => {
       name,
       email,
       password: hashedPassword,
+      role,
     });
 
     // Create token
